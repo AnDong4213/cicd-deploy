@@ -22,6 +22,33 @@ git tag -d v1.0
 git push origin :refs/tags/v1.0
 ```
 
+## Nginx Command
+
+```java
+cd /usr/share/nginx
+cd /usr/share
+cd /etc/nginx   在这个下 cd /var/log/nginx
+
+netstat -tupln | grep 80
+ifconfig
+nginx -s stop(立即停止)  Or nginx -s quit(优雅停止) 停止nginx
+
+nginx -s reopen(更改日志名称后，重新按配置的记录)
+nginx -t(检查文件有没有错误)
+nginx -s reload
+nginx -h
+
+
+include /etc/nginx/conf.d/*.conf
+include /etc/nginx/sites-enabled/*
+
+// 具体配置
+include /etc/nginx/conf.d/*.conf
+include /etc/nginx/sites-enabled/* （主要是这个）
+
+root /var/www/html;
+```
+
 |                                           第一列                                            |                                    第二列                                     |                                    第三列                                     |
 | :-----------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
 | ![](https://gdp.alicdn.com/imgextra/i3/263817957/TB2oJU9oxHI8KJjy1zbXXaxdpXa-263817957.jpg) | ![](https://p1.music.126.net/lp_KuGIlcvKQg-bnFrv3Qw==/109951164450570662.jpg) | ![](https://p1.music.126.net/WzCLWlYaoVQM9SATteticg==/109951169848359550.jpg) |
