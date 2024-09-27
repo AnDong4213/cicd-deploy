@@ -1,5 +1,6 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: "/cicd-deploy/dist"
+  // publicPath: "/cicd-deploy/dist"
+  publicPath: "/"
 });
