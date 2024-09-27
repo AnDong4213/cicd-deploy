@@ -51,6 +51,7 @@ include /etc/nginx/sites-enabled/* （主要是这个）
 root /var/www/html;
 
 vim: set nu显示行号
+curl -v https://github.com
 ```
 
 > 在 Nginx 配置中，server_name 指令用于定义 Nginx 服务器块（server block）处理的域名。这个指令非常关键，因为它决定了 Nginx 如何处理进入的 HTTP 请求。当 Nginx 接收到一个 HTTP 请求时，它会根据请求的 Host 头部字段（即请求的域名）来查找对应的 server 块。
