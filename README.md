@@ -58,6 +58,16 @@ root /var/www/html;
 
 }
 
+> 在这个中，server_name 指令后面跟了两个域名：example.com 和 www.example.com。这意味着，当Nginx接收到Host头部为example.com或www.example.com的请求时，就会使用这个server块中的配置来处理这些请求。
+
+### 注意事项
+
+- 顺序：Nginx 按照配置文件中 server 块的顺序来读取 server_name。如果请求匹配了多个 server_name，Nginx 会选择最先匹配到的那个 server 块来处理请求。因此，请确保你的 server 块顺序是按照你的需求来安排的
+- 默认服务器：如果没有任何 server*name 能够匹配请求的 Host 头部，Nginx 会选择一个默认的 server 块来处理这个请求。这个默认的 server 块通常监听在 80 或 443 端口上，并且没有 server_name 指令，或者 server_name 被设置为一个不太可能匹配到的值（如*或 default_server）。
+- 性能：使用通配符和正则表达式可能会稍微降低 Nginx 处理请求的效率，因为 Nginx 需要对每个请求进行更复杂的匹配操作。但是，在大多数情况下，这种影响是可以忽略不计的。
+
+##### 通过合理配置 server_name，你可以确保 Nginx 能够准确地根据请求的域名来分发请求，从而提供正确的服务和内容。
+
 |                                                                第一列                                                                |                                    第二列                                     |                                    第三列                                     |
 | :----------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
 | ![](https://mmbiz.qpic.cn/mmbiz_jpg/dXcQpaUc9y59kia8bJcvvVJw7uyNOoRdLYXuk4SA0uze6libh1lcQ8OBOibKicbYaEm11YzZw4Ub3VNU8sr8pd7uYQ/640)  | ![](https://p1.music.126.net/lp_KuGIlcvKQg-bnFrv3Qw==/109951164450570662.jpg) | ![](https://p1.music.126.net/WzCLWlYaoVQM9SATteticg==/109951169848359550.jpg) |
