@@ -18,5 +18,5 @@ jobs:
             rm -rf cicd-deploy
             git clone https://github.com/AnDong4213/cicd-deploy.git -b ${{ github.ref_name }}
             cd cicd-deploy
-            npm install
+            npm install --registry=https://registry.npmmirror.com
             npm run build
