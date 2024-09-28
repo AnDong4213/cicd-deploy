@@ -20,3 +20,4 @@ jobs:
             cd cicd-deploy
             npm install --registry=https://registry.npmmirror.com
             npm run build
+            cp -r dist /var/www
