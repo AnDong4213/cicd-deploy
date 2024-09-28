@@ -16,7 +16,7 @@ jobs:
             cd /var/www
             ls -al
             rm -rf cicd-deploy
-            git clone git@github.com:AnDong4213/cicd-deploy.git -b ${{ github.ref_name }}
+            git clone https://github.com/AnDong4213/cicd-deploy.git -b ${{ github.ref_name }}
             cd cicd-deploy
             npm install
             npm run build
