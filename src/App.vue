@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/1.jpg" style="width: 500px" />
+  <img alt="Vue logo" src="./assets/1.jpg" style="width: 800px" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
   <h5>Executing remote ssh commands.</h5>
 </template>
