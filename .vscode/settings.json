@@ -2,6 +2,6 @@
   // "editor.fontFamily": "Ebrima",
   "editor.fontFamily": "Input Mono",
   // "editor.fontFamily": "Consolas",
-  "editor.fontSize": 22,
-  "editor.fontWeight": "bold"
+  "editor.fontSize": 20
+  // "editor.fontWeight": "bold"
 }
