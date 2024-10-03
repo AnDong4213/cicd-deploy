@@ -22,6 +22,9 @@ git tag -d v1.0
 git push origin :refs/tags/v1.0
 
 https://api.github.com/repos/AnDong4213/cicd-deploy/tags
+https://gitee.com/api/v5/repos/zhaoandong4213/lerna-template
+https://registry.npmmirror.com/@lernauniversal/commit
+https://registry.npmjs.org/axios
 ```
 
 ## Nginx Command
