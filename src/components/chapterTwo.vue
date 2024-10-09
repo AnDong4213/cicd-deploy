@@ -69,7 +69,7 @@ const plog = console.log;
   // );
   // plog(25 >> 1);
   // plog(25 >>> 1);
-  plog(Number.MAX_SAFE_INTEGER, 2 ** 32, Math.pow(2, 32));
+  // plog(Number.MAX_SAFE_INTEGER, 2 ** 32, Math.pow(2, 32));
 }
 
 {
@@ -164,8 +164,34 @@ const plog = console.log;
   // plog(Object.getOwnPropertyDescriptor(global, "Function"));
 }
 
+// 2-2 综合评定，数据类型8种判断方式
+
+{
+  /* 第一种 typeof */
+  // plog(typeof document.all, typeof document.all === "undefined"); // undefined，true
+  // plog(typeof null); // object
+  // plog(typeof NaN); // number
+  // NaN，它实际上是一个数字类型的值，是数字类型的一部分，不过是一个特殊的、表示未定义或不可表示的数字，NaN 是由数字运算产生的，通常是由于无效的数学操作（如 0 除以 0）或试图将非数字字符串转换为数字时产生的。
+  // console.log(isNaN(NaN)); // 输出 true
+  // console.log(Number.isNaN(NaN)); // 输出 true
+  // console.log(isNaN("Hello")); // 输出 true，因为 "Hello" 被转换为 NaN
+  // console.log(Number.isNaN("Hello")); // 输出 false，因为 "Hello" 不是一个数字值
+  /* 第二种 constructor，指向创建实例对象的构造函数 */
+  plog(constructor);
+  console.log("a".constructor.name, typeof "a");
+  console.log({}.constructor.name, typeof {}); // Object object
+  console.log(true.constructor.name, typeof true); // Boolean boolean
+}
+
 onMounted(() => {
   // console.log(0.1 + 0.2)
+  //   位：是计算机存储的最小单位，也称为比特（bit）。
+  // 计算机中用二进制中的0和1来表示数据，一个0或1就代表一位。
+  // n位就能代表2的n次方个值。
+  // 比如1位，代表的值有
+  // 1 或者 0
+  // 2位就能表示四个值
+  // 00  01  10  11
 });
 </script>
 
