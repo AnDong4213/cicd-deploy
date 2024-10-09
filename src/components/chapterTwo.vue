@@ -1,13 +1,11 @@
 <template>
-  <div class="hello">
-    HelloWorld
-  </div>
+  <div class="hello">HelloWorld</div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 
-const plog = console.log
+const plog = console.log;
 {
   // 判断是不是Object
   // console.log(typeof null) // object，
@@ -24,7 +22,7 @@ const plog = console.log
   const toNumber = (val) => {
     const result = +val;
     plog(result);
-  }
+  };
   // toNumber(null) // 0
   // toNumber(undefined) // NaN
   // toNumber(1) // 1
@@ -42,29 +40,133 @@ const plog = console.log
 {
   // 位移转为数字
   // 在 JavaScript 中，位移运算符用于对二进制数进行位移操作，有符号右移运算符 (>>) 和无符号右移运算符 (>>>)
-  // >> 有符号右移运算符将数的二进制表示向右移动指定的位数，并在左侧填充符号位（即最高位，0 表示正数，1 表示负数）。这意味着对于正数，左侧会填充 0；对于负数，左侧会填充 1。 
+  // >> 有符号右移运算符将数的二进制表示向右移动指定的位数，并在左侧填充符号位（即最高位，0 表示正数，1 表示负数）。这意味着对于正数，左侧会填充 0；对于负数，左侧会填充 1。
   // >>> 无符号右移运算符也将数的二进制表示向右移动指定的位数，但无论数的符号如何，左侧都会填充 0。这意味着无论正数还是负数，其左侧都会用 0 填充。
   const toNumber = (val) => {
-    const result = val >> 0
-    plog(result)
-  }
+    const result = val >> 0;
+    plog(result);
+  };
   const toNumber2 = (val) => {
-    const result = val >>> 0
-    plog(result)
-  }
+    const result = val >>> 0;
+    plog(result);
+  };
+  const aa = 15;
+  const aaa = "11110";
 
-  toNumber(null)  // 0
-  toNumber({})    // 0
-  toNumber("10x") // 0
-  toNumber("10")  // 10
-  toNumber(Number.MAX_SAFE_INTEGER) // -1
-  plog(Number.MAX_SAFE_INTEGER.toString(2), Number.MAX_SAFE_INTEGER.toString(2).length)
-  plog(50 >> 1)
+  // toNumber(null); // 0
+  // toNumber({}); // 0
+  // toNumber("10x"); // 0
+  // toNumber("10"); // 10
+  // toNumber(10n); // 报错，ES6的 BigInt 和Symbol，不可以转换
+  // toNumber(Number.MAX_SAFE_INTEGER); // -1
+  // toNumber2(Number.MAX_SAFE_INTEGER); // 4294967295
+  // plog(aa.toString(2));
+  // parseInt 是 JavaScript 中的一个全局函数，用于将一个字符串解析成整数。它尝试从字符串的开头解析一个整数，直到遇到第一个无法解析为数字的字符为止，然后返回解析得到的整数。如果字符串的第一个字符不能被解析为数字（包括正负号），则返回 NaN（Not-a-Number，非数字值）。
+  // plog(parseInt(aaa, 2)); // 30
+  // plog(
+  //   Number.MAX_SAFE_INTEGER.toString(2),
+  //   Number.MAX_SAFE_INTEGER.toString(2).length
+  // );
+  // plog(25 >> 1);
+  // plog(25 >>> 1);
+  plog(Number.MAX_SAFE_INTEGER, 2 ** 32, Math.pow(2, 32));
+}
+
+{
+  const arr = ["1", "2", "3"];
+  // plog(arr.map(parseInt)); // [1, NaN, NaN]
+  // plog(arr.map((val, index) => parseInt(val, index))); // [1, NaN, NaN]
+}
+
+{
+  // 哪些值转化为布尔值为false
+  // console.log(Boolean(false)); // 输出: false
+  // console.log(Boolean(0)); // 输出: false
+  // console.log(Boolean(-0)); // 输出: false
+  // console.log(Boolean(0n)); // 输出: false  BigInt 0（BigInt 类型的零）。
+  // console.log(Boolean("")); // 输出: false
+  // console.log(Boolean(null)); // 输出: false
+  // console.log(Boolean(undefined)); // 输出: false
+  // console.log(Boolean(NaN)); // 输出: false
+  // plog(!!NaN);
+}
+
+{
+  // 宽松比较，本质是 隐式转换
+  // plog(0 == null); // false
+  // plog(null == null); // true
+  // plog(null == undefined); // true
+  // plog("0" == false); // true
+  // plog(Symbol.for("a") == Symbol.for("a")); // true
+  // plog(Symbol("a") === Symbol("a")); // false
+  // Symbol 值可以显式转为字符串。
+  let sym = Symbol("My symbol");
+  // plog(sym.description);
+  // plog(sym.toString()); // 'Symbol(My symbol)'
+  // plog(String(sym)); // 'Symbol(My symbol)'
+  // plog(String(sym) === sym.toString()); // true
+  // Symbol 值也可以转为布尔值，但是不能转为数值。Symbol 值不能与其他类型的值进行运算，会报错。
+  // Symbol 值通过Symbol()函数生成。
+  // 我们希望重新使用同一个 Symbol 值，Symbol.for()方法可以做到这一点。
+  // Symbol.for()与Symbol()这两种写法，都会生成新的 Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。Symbol.for()不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的key是否已经存在，如果不存在才会新建一个值。比如，如果你调用Symbol.for("cat")30 次，每次都会返回同一个 Symbol 值，但是调用Symbol("cat")30 次，会返回 30 个不同的 Symbol 值。
+  // Symbol.for()为 Symbol 值登记的名字，是全局环境的，不管有没有在全局环境运行。
+
+  const a = {
+    valueOf() {
+      return 1000;
+    }
+  };
+  const b = {
+    valueOf() {
+      return 100;
+    }
+  };
+  const c = {
+    value: 42,
+    valueOf: function () {
+      return this.value;
+    }
+  };
+
+  // plog(a > b); // true
+  // plog(a < b);
+  // plog(a.valueOf());
+  // plog(+a, typeof a);
+  // plog(+c);
+}
+
+{
+  // typeof性能比instanceof性能高20倍？(高2-3倍，在千万级下)
+  /*  var count = 10000000;
+  var func = function () {};
+
+  var startTime = new Date();
+  console.log(typeof func === "function");
+  for (var j = 0; j < count; j++) {
+    typeof func === "function";
+  }
+  console.log(
+    '[typeof func === "function"] ' +
+      (new Date().getTime() - startTime.getTime())
+  );
+  startTime = new Date();
+
+  console.log(func instanceof Function);
+  for (var k = 0; k < count; k++) {
+    func instanceof Function;
+  }
+  console.log(
+    "[func instanceof Function] " + (new Date().getTime() - startTime.getTime())
+  ); */
+  // null 和 undefined的实现机制完全不一样，null是关键字，undefined是个变量
+  // plog(Object.getOwnPropertyDescriptor(global, "null")); // undefined
+  // plog(Object.getOwnPropertyDescriptor(global, "undefined"));
+  // plog(Object.getOwnPropertyDescriptor(global, "Function"));
 }
 
 onMounted(() => {
   // console.log(0.1 + 0.2)
-})
+});
 </script>
 
 <style scoped></style>
