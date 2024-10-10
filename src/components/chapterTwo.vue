@@ -133,6 +133,9 @@ const plog = console.log;
   // plog(a.valueOf());
   // plog(+a, typeof a);
   // plog(+c);
+  // plog(typeof 0b111); // number
+  // plog(typeof 11n); // bigint
+  // plog(parseInt("111", 2) === 0b111); // true
 }
 
 {
@@ -162,6 +165,8 @@ const plog = console.log;
   // plog(Object.getOwnPropertyDescriptor(global, "null")); // undefined
   // plog(Object.getOwnPropertyDescriptor(global, "undefined"));
   // plog(Object.getOwnPropertyDescriptor(global, "Function"));
+  // plog(Object.getOwnPropertyDescriptor(window, "undefined"));
+  // plog(window === global); // true
 }
 
 // 2-2 综合评定，数据类型8种判断方式
@@ -176,11 +181,97 @@ const plog = console.log;
   // console.log(Number.isNaN(NaN)); // 输出 true
   // console.log(isNaN("Hello")); // 输出 true，因为 "Hello" 被转换为 NaN
   // console.log(Number.isNaN("Hello")); // 输出 false，因为 "Hello" 不是一个数字值
+
   /* 第二种 constructor，指向创建实例对象的构造函数 */
-  plog(constructor);
-  console.log("a".constructor.name, typeof "a");
-  console.log({}.constructor.name, typeof {}); // Object object
-  console.log(true.constructor.name, typeof true); // Boolean boolean
+  // plog(constructor);  // ƒ Window() { [native code] }
+  // console.log("a".constructor, typeof "a".constructor); // ƒ String() { [native code] }，'function'
+  // console.log("a".constructor.name, typeof "a"); // String string
+  // console.log({}.constructor.name, typeof {}); // Object object
+  // console.log([].constructor.name, typeof []); // Array object
+  // console.log(true.constructor.name, typeof true); // Boolean boolean
+  // console.log(new Map([{}]).constructor.name, typeof new Map([{}])); // Map object
+  // plog(new String("aa") == "aa"); // true
+
+  class p1 {
+    constructor() {
+      this.age = 7;
+    }
+    getAge() {}
+  }
+
+  const a1 = new p1();
+  // plog(a1);
+  // plog(a1.constructor.name == "p1");  // true
+
+  /* 第三种 instanceof，它用于判断一个对象是否是某个构造函数的实例 */
+  /* plog(a1 instanceof p1); // true
+  plog(
+    a1.__proto__ === a1.constructor.prototype,
+    a1.constructor.prototype === p1.prototype,
+    p1.prototype
+  ); // true，true */
+
+  /* 第四种 isPrototypeOf，isPrototypeOf 是 Object 原型链上的一个方法，检查一个实例对象是否存在于另一个对象的原型链上 */
+  // 能正常返回值的情况，基本等同于instanceof，比instanceof安全些
+  // eslint-disable-next-line no-prototype-builtins
+  // plog(p1.prototype.isPrototypeOf(a1)); // true
+  // eslint-disable-next-line no-prototype-builtins
+  // plog(Object.prototype.isPrototypeOf(a1)); // true
+  // eslint-disable-next-line no-prototype-builtins
+  // plog(Object.prototype.isPrototypeOf(null)); // false
+  // eslint-disable-next-line no-prototype-builtins
+  // plog(Object.prototype.isPrototypeOf(BigInt.prototype)); // true
+
+  /* 第五种 Object.prototype.toString */
+  // 当你调用Object.prototype.toString.call(value)时，JavaScript引擎会执行以下步骤：
+
+  // 1、获取Object.prototype上的toString方法：这个方法是一个内置的函数，用于返回表示该对象的字符串。
+  // 2、使用call方法改变this的上下文：call方法允许你调用一个函数，同时指定函数体内this的值。在这个例子中，this被设置为value参数所代表的对象。
+  // 3、返回类型字符串：根据value的实际类型，Object.prototype.toString会返回一个特定的字符串，比如"[object Type]"，其中Type是对象的类型名称。
+  // plog(Object.prototype.toString.call(1n)); // [object BigInt]
+  // plog(Object.prototype.toString.call(Boolean.prototype));
+  // plog(Object.prototype.toString("1n")); // [object Object]
+
+  /* 第六种 鸭子类型检测 */
+
+  /* 第七种 Symbol.toStringTag */
+  // Symbol.toStringTag 是一个内置的符号（Symbol），它用于定义对象在调用 Object.prototype.toString.call(obj) 方法时返回的字符串描述。这个描述通常用于调试目的，以提供一个更易于识别的对象类型标签。
+  class MyClass {
+    // 自定义 toStringTag
+    get [Symbol.toStringTag]() {
+      return "MyCustomClass";
+    }
+  }
+  const obj = new MyClass();
+  // console.log(Object.prototype.toString.call(obj)); // 输出: "[object MyCustomClass]"
+
+  /* 第八种 等比较 */
+  // plog(void 0); // undefined
+}
+
+// 2-3 Es6增强的NaN
+{
+  // plog(typeof NaN); // number
+  // plog(typeof Number.NaN); // number
+  // // eslint-disable-next-line use-isnan
+  // plog(NaN === NaN); // false
+  // plog(isNaN(Symbol())); // 报错
+  // plog(Number.isNaN(Symbol())); //false 不报错
+  // plog("isNaN" in Number); // true
+
+  const arr = [NaN];
+  // plog(arr.indexOf(NaN)); // -1
+  // plog(arr.includes(NaN)); // true
+
+  // Number.isNaN和isNaN
+  // isNaN，它会首先尝试将参数转换为一个数字，然后再判断转换后的值是否是 NaN，
+  // Number.isNaN，不会隐式地将参数转换为数字，只有当参数是 NaN 时，才返回 true
+
+  // Object.is 是 JavaScript 中的一个方法，它用于比较两个值是否严格相等（即值和类型都相等）。这个方法与严格相等运算符 === 非常相似，但在处理某些特殊情况时有所不同。
+  plog(Object.is(NaN, NaN)); // true
+  plog(Object.is(+0, -0)); // false
+  // eslint-disable-next-line no-compare-neg-zero
+  plog(+0 === -0); // true
 }
 
 onMounted(() => {
@@ -192,6 +283,21 @@ onMounted(() => {
   // 1 或者 0
   // 2位就能表示四个值
   // 00  01  10  11
+  /* function Person(name) {
+    this.name = name;
+  }
+
+  function Employee(name, employeeId) {
+    // 调用Person构造函数，继承Person的属性
+    Person.call(this, name);
+    this.employeeId = employeeId;
+  }
+  // Employee.prototype = Object.create(Person.prototype);
+  // Employee.prototype.constructor = Employee;
+
+  const emp1 = new Employee("John Doe", "E12345");
+  console.log(emp1);
+  console.log(emp1.constructor.name); */
 });
 </script>
 
