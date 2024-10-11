@@ -1,7 +1,12 @@
 {
-  // "editor.fontFamily": "Ebrima",
-  "editor.fontFamily": "Input Mono",
-  // "editor.fontFamily": "Consolas",
-  "editor.fontSize": 18,
-  // "editor.fontWeight": "bold"
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+   // "editor.fontFamily": "Ebrima",
+   "editor.fontFamily": "Input Mono",
+   // "editor.fontFamily": "Consolas",
+   "editor.fontSize": 18,
+   "editor.fontWeight": "normal"
 }

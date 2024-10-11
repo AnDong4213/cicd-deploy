@@ -1,15 +1,12 @@
 <template>
-  <div class="hello">
-    HelloWorld
-  </div>
+  <div class="hello">Hello Vue3</div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 const plog = console.log
 
-onMounted(() => {
-})
+onMounted(() => {})
 </script>
 
 <style scoped></style>

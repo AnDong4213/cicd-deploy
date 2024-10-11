@@ -1,11 +1,11 @@
 <template>
-  <div class="hello">HelloWorld</div>
+  <div class="hello">Hello Vue3</div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted } from 'vue'
 
-const plog = console.log;
+const plog = console.log
 {
   // 判断是不是Object
   // console.log(typeof null) // object，
@@ -20,9 +20,9 @@ const plog = console.log;
   // 一元加号运算符+转为数字，在 JavaScript 中，一元加号运算符（+）可以用作将变量或其他值转换为数字类型的快速方法。这个运算符会尝试将其操作数转换为一个数字，如果转换失败，则结果为 NaN
   // 传统数据类型
   const toNumber = (val) => {
-    const result = +val;
-    plog(result);
-  };
+    const result = +val
+    plog(result)
+  }
   // toNumber(null) // 0
   // toNumber(undefined) // NaN
   // toNumber(1) // 1
@@ -43,15 +43,15 @@ const plog = console.log;
   // >> 有符号右移运算符将数的二进制表示向右移动指定的位数，并在左侧填充符号位（即最高位，0 表示正数，1 表示负数）。这意味着对于正数，左侧会填充 0；对于负数，左侧会填充 1。
   // >>> 无符号右移运算符也将数的二进制表示向右移动指定的位数，但无论数的符号如何，左侧都会填充 0。这意味着无论正数还是负数，其左侧都会用 0 填充。
   const toNumber = (val) => {
-    const result = val >> 0;
-    plog(result);
-  };
+    const result = val >> 0
+    plog(result)
+  }
   const toNumber2 = (val) => {
-    const result = val >>> 0;
-    plog(result);
-  };
-  const aa = 15;
-  const aaa = "11110";
+    const result = val >>> 0
+    plog(result)
+  }
+  const aa = 15
+  const aaa = '11110'
 
   // toNumber(null); // 0
   // toNumber({}); // 0
@@ -73,7 +73,7 @@ const plog = console.log;
 }
 
 {
-  const arr = ["1", "2", "3"];
+  const arr = ['1', '2', '3']
   // plog(arr.map(parseInt)); // [1, NaN, NaN]
   // plog(arr.map((val, index) => parseInt(val, index))); // [1, NaN, NaN]
 }
@@ -100,7 +100,7 @@ const plog = console.log;
   // plog(Symbol.for("a") == Symbol.for("a")); // true
   // plog(Symbol("a") === Symbol("a")); // false
   // Symbol 值可以显式转为字符串。
-  let sym = Symbol("My symbol");
+  let sym = Symbol('My symbol')
   // plog(sym.description);
   // plog(sym.toString()); // 'Symbol(My symbol)'
   // plog(String(sym)); // 'Symbol(My symbol)'
@@ -113,20 +113,20 @@ const plog = console.log;
 
   const a = {
     valueOf() {
-      return 1000;
+      return 1000
     }
-  };
+  }
   const b = {
     valueOf() {
-      return 100;
+      return 100
     }
-  };
+  }
   const c = {
     value: 42,
     valueOf: function () {
-      return this.value;
+      return this.value
     }
-  };
+  }
 
   // plog(a > b); // true
   // plog(a < b);
@@ -194,12 +194,12 @@ const plog = console.log;
 
   class p1 {
     constructor() {
-      this.age = 7;
+      this.age = 7
     }
     getAge() {}
   }
 
-  const a1 = new p1();
+  const a1 = new p1()
   // plog(a1);
   // plog(a1.constructor.name == "p1");  // true
 
@@ -229,6 +229,7 @@ const plog = console.log;
   // 2、使用call方法改变this的上下文：call方法允许你调用一个函数，同时指定函数体内this的值。在这个例子中，this被设置为value参数所代表的对象。
   // 3、返回类型字符串：根据value的实际类型，Object.prototype.toString会返回一个特定的字符串，比如"[object Type]"，其中Type是对象的类型名称。
   // plog(Object.prototype.toString.call(1n)); // [object BigInt]
+  // plog(Object.prototype.toString.call(new Map([{}]))); // [object Map]
   // plog(Object.prototype.toString.call(Boolean.prototype));
   // plog(Object.prototype.toString("1n")); // [object Object]
 
@@ -239,10 +240,10 @@ const plog = console.log;
   class MyClass {
     // 自定义 toStringTag
     get [Symbol.toStringTag]() {
-      return "MyCustomClass";
+      return 'MyCustomClass'
     }
   }
-  const obj = new MyClass();
+  const obj = new MyClass()
   // console.log(Object.prototype.toString.call(obj)); // 输出: "[object MyCustomClass]"
 
   /* 第八种 等比较 */
@@ -259,7 +260,7 @@ const plog = console.log;
   // plog(Number.isNaN(Symbol())); //false 不报错
   // plog("isNaN" in Number); // true
 
-  const arr = [NaN];
+  const arr = [NaN]
   // plog(arr.indexOf(NaN)); // -1
   // plog(arr.includes(NaN)); // true
 
@@ -268,10 +269,10 @@ const plog = console.log;
   // Number.isNaN，不会隐式地将参数转换为数字，只有当参数是 NaN 时，才返回 true
 
   // Object.is 是 JavaScript 中的一个方法，它用于比较两个值是否严格相等（即值和类型都相等）。这个方法与严格相等运算符 === 非常相似，但在处理某些特殊情况时有所不同。
-  plog(Object.is(NaN, NaN)); // true
-  plog(Object.is(+0, -0)); // false
-  // eslint-disable-next-line no-compare-neg-zero
-  plog(+0 === -0); // true
+  // plog(Object.is(NaN, NaN)); // true
+  // plog(Object.is(+0, -0)); // false
+  // // eslint-disable-next-line no-compare-neg-zero
+  // plog(+0 === -0); // true
 }
 
 onMounted(() => {
@@ -283,22 +284,35 @@ onMounted(() => {
   // 1 或者 0
   // 2位就能表示四个值
   // 00  01  10  11
-  /* function Person(name) {
-    this.name = name;
+  function Person(name) {
+    this.name = name
   }
 
   function Employee(name, employeeId) {
     // 调用Person构造函数，继承Person的属性
-    Person.call(this, name);
-    this.employeeId = employeeId;
+    Person.call(this, name)
+    this.employeeId = employeeId
   }
-  // Employee.prototype = Object.create(Person.prototype);
-  // Employee.prototype.constructor = Employee;
+  Employee.prototype = Object.create(Person.prototype)
+  Employee.prototype.constructor = Employee
 
-  const emp1 = new Employee("John Doe", "E12345");
-  console.log(emp1);
-  console.log(emp1.constructor.name); */
-});
+  const emp1 = new Employee('John Doe', 'E12345')
+  // console.log(emp1)
+  // console.log(emp1.constructor.name)
+
+  function instanceOf(A, B) {
+    let p = A
+    while (p) {
+      if (p === B.prototype) {
+        return true
+      }
+      // p = p.__proto__;
+      p = Object.getPrototypeOf(p)
+    }
+    return false
+  }
+  plog(instanceOf(emp1, Employee))
+})
 </script>
 
 <style scoped></style>
