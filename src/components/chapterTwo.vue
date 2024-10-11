@@ -271,8 +271,21 @@ const plog = console.log
   // Object.is 是 JavaScript 中的一个方法，它用于比较两个值是否严格相等（即值和类型都相等）。这个方法与严格相等运算符 === 非常相似，但在处理某些特殊情况时有所不同。
   // plog(Object.is(NaN, NaN)); // true
   // plog(Object.is(+0, -0)); // false
-  // // eslint-disable-next-line no-compare-neg-zero
-  // plog(+0 === -0); // true
+  // eslint-disable-next-line no-compare-neg-zero
+  // plog(+0 === -0) // true
+}
+
+{
+  plog([] + [])
+  plog([] + {})
+  plog({} + [])
+  console.log({} + [])
+  plog(typeof ({} + {}))
+
+  // plog(String({}), '--', {}.toString(), '--', [].toString())
+  // plog([].valueOf()) // []
+  // plog(Symbol.for('2') + 9) //  TypeError: Cannot convert a Symbol value to a number
+  // plog(2n + 6) // TypeError: Cannot mix BigInt and other types, use explicit conversions
 }
 
 onMounted(() => {
@@ -311,7 +324,7 @@ onMounted(() => {
     }
     return false
   }
-  plog(instanceOf(emp1, Employee))
+  // plog(instanceOf(emp1, Employee))
 })
 </script>
 
