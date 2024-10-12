@@ -29,6 +29,7 @@ const plog = console.log
   // toNumber("123aa") // NaN
   // toNumber({}) // NaN
   // toNumber(true) // 1
+  // toNumber(false) // 0
   // toNumber(new Date()) // 该日期的时间戳
 
   // ES6的 BigInt 和Symbol，不可以转换
@@ -275,17 +276,118 @@ const plog = console.log
   // plog(+0 === -0) // true
 }
 
+// 2-4 数值千分位6种方法
 {
-  plog([] + [])
-  plog([] + {})
-  plog({} + [])
-  console.log({} + [])
-  plog(typeof ({} + {}))
+  const num = 93876543.02
+  const num1 = 93876543
+  const format_with_array1 = (number) => {
+    // 转为字符串，并按照.拆分
+    var arr = (number + '').split('.')
+    // 整数部分再拆分
+    var int = arr[0].split('')
+    // 小数部分
+    var fraction = arr[1] || ''
+    // 返回的变量
+    var r = ''
+    // 倒叙并遍历
+    int.reverse().forEach((v, i) => {
+      if (i !== 0 && i % 3 === 0) {
+        r = v + ',' + r
+      } else {
+        r = v + r
+      }
+    })
+    return r + (fraction ? '.' + fraction : '')
+  }
+  plog(format_with_array1(num))
 
+  const format_with_array2 = (number) => {
+    // 数字转字符串, 并按照 .分割
+    var arr = (number + '').split('.')
+    var int = arr[0] + ''
+    var fraction = arr[1] || ''
+    // 多余的位数
+    var f = int.length % 3
+    // 获取多余的位数，f可能是0， 即r可能是空字符串
+    var r = int.substring(0, f)
+    // 每三位添加","和对应的字符
+    for (var i = 0; i < Math.floor(int.length / 3); i++) {
+      r += ',' + int.substring(f + i * 3, f + (i + 1) * 3)
+    }
+
+    //多余的位数，上面
+    if (f === 0) {
+      r = r.substring(1)
+    }
+    // 整数部分和小数部分拼接
+    return r + (fraction ? '.' + fraction : '')
+  }
+  plog(format_with_array2(num))
+
+  // 使用正则
+  // const reg = /hello (?=[a-z])+/,
+  //   str = 'hello 1'
+  // plog(reg.test(str))
+  // plog(str.match(reg))
+  // ?= 正向前瞻断言
+  // ?: 非捕获组，非捕获组用于分组但不捕获匹配的文本，这可以提高正则表达式的性能，特别是在不需要捕获组内容的情况下
+  /* const regex = /(?:foo|bar)baz/g
+  const str = 'aasfoobaz4324barbazq'
+  plog(str.match(regex)) // ['foobaz', 'barbaz'] */
+  const format_with_regex = (number) => {
+    var arr = (number + '').split('.')
+    var int = arr[0]
+    var fraction = arr[1] || ''
+    // const reg = /\d{1,3}(?=(\d{3})+$)/g
+    // plog(int.match(reg)) // ['93', '876']
+    // return int.replace(reg, '$&,') + (fraction ? '.' + fraction : '')
+
+    const reg = /(\d)(?=(?:\d{3})+$)/g
+    plog(int.match(reg)) // ['3', '6']
+    return int.replace(reg, '$1,') + (fraction ? '.' + fraction : '')
+  }
+
+  const format_with_regex2 = (number) => {
+    var arr = (number + '').split('.')
+    var int = arr[0]
+    var fraction = arr[1] || ''
+    var reg = /\d{1,3}(?=(\d{3})+$)/g
+    return (
+      (int + '').replace(reg, function (match, ...args) {
+        // console.log(match, '--', args)
+        return match + ','
+      }) + (fraction ? '.' + fraction : '')
+    )
+  }
+  plog(format_with_regex2(num))
+
+  // plog(19 >> 2)
+}
+
+// 2-5 [] + [], [] + {}, {} + [], {} + {}
+
+{
+  // plog([] + []) // ''
+  // plog([] + {}) // '[object Object]'
+  /* plog({} + [])
+  plog({} + {}) // [object Object][object Object]
+  // 这两个在控制台下结果是不一样的，控制台下{}是一个代码块，相当于{}; + [] 和 {}; + {}
+  */
+  // 空数组 [] 被转换成字符串时，会变成 ""（空字符串）。
+  // 空对象 {} 被转换成字符串时，会变成 "[object Object]"。这是因为在 JavaScript 中，当你尝试将一个对象转换成字符串时，默认情况下会调用对象的 toString() 方法，而普通对象的 toString() 方法会返回 "[object Object]"。
   // plog(String({}), '--', {}.toString(), '--', [].toString())
   // plog([].valueOf()) // []
   // plog(Symbol.for('2') + 9) //  TypeError: Cannot convert a Symbol value to a number
   // plog(2n + 6) // TypeError: Cannot mix BigInt and other types, use explicit conversions
+}
+
+// 2-6 综合训练
+
+{
+  console.log(2 + '2') // '22'
+  console.log(true + true) // 2
+  console.log(2 + [4, 5, 6]) // '24,5,6'
+  console.log([4, 5, 6].toString()) // 4,5,6
 }
 
 onMounted(() => {
@@ -325,6 +427,14 @@ onMounted(() => {
     return false
   }
   // plog(instanceOf(emp1, Employee))
+
+  function test(...args) {
+    console.log(args)
+    console.log(typeof args)
+  }
+  test(15)
+
+  console.log(typeof typeof 1) // string
 })
 </script>
 
