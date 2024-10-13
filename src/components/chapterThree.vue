@@ -52,10 +52,26 @@ const hasOwn = Object.hasOwnProperty
   }
   log(Object.keys(person)) // ['getName', 'name', 'age'] 和 for ... in循环一样 */
   // eslint-disable-next-line no-prototype-builtins
-  log(Object.getPrototypeOf(person).hasOwnProperty('name')) // false
+  // log(Object.getPrototypeOf(person).hasOwnProperty('name')) // false
+  // eslint-disable-next-line no-prototype-builtins
+  // log(Object.getPrototypeOf(person).hasOwnProperty('getAge')) // true
+
+  const obj = {}
+  Object.defineProperty(obj, 'name', {
+    configurable: true,
+    enumerable: true,
+    value: '小炜',
+    writable: true
+  })
+  log(obj)
+  const desc = Object.getOwnPropertyDescriptor(obj, 'name')
+  log(desc)
+  // log(Object.keys(obj))  // 如果enumerable为false，Object.keys 或 for ... in循环获取不到
+  // delete obj.name  // 设置configurable为false，删除报错
+  obj.name = '看看'
 }
 
-onMounted(() => {})
+onMounted(() => { })
 </script>
 
 <style scoped></style>
